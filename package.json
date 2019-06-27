@@ -6,6 +6,7 @@
   "dependencies": {
     "bootstrap": "^4.3.1",
     "mint-ui": "^2.2.13",
+    "moment": "^2.24.0",
     "node-sass": "^4.12.0",
     "vue": "^2.6.10",
     "vue-resource": "^1.5.1",
@@ -32,7 +33,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack-dev-server --open --contentBase src --hot"
+    "dev": "webpack-dev-server --open  --hot"
   },
   "keywords": [],
   "author": "",
