@@ -2,8 +2,8 @@
     <div class="cmt-container">
         <h4>发表评论</h4>
         <hr>
-        <textarea placeholder="最多输入120字" maxlength="120"></textarea>
-        <mt-button type="primary" size="large" plain>发表评论</mt-button>
+        <textarea placeholder="最多输入120字" maxlength="120" v-model="msg"></textarea>
+        <mt-button type="primary" size="large" plain @click="post">发表评论</mt-button>
         <div class="cmt-list">
             <div class="cmt-item" v-for="(item,i) in comments" :key="item.add_time">
                 <div class="cmt-title">
@@ -19,11 +19,13 @@
 </template>
 
 <script>
+import {Toast} from 'mint-ui'
 export default {
     data(){
         return{
             pageIndex:1,
             comments:[],
+            msg:' '
             
         }
     },
@@ -44,6 +46,20 @@ export default {
         getMore(){
             this.pageIndex ++;
              this.getComments()
+        },
+        post(){
+            if(this.msg.trim() == 0){
+                 return Toast('大哥，你还没有输入内容')
+            }
+            this.$http.post('http://www.liulongbin.top:3005/api/postcomment/'+ this.$route.params.id,{content:this.msg.trim()}).then(result=>{
+                if(result.body.status ==0){
+                    var cmt = {user_name:'匿名用户',add_time:Date.now(),content:this.msg.trim()};
+                    this.comments.unshift(cmt)
+                    this.msg=' '
+                }else{
+                    Toast('fail')
+                }
+            })
         }
     },
     props:['id']
