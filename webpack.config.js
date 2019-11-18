@@ -10,7 +10,7 @@ module.exports = {
         new VueLoaderPlugin
 
     ],
-
+    
     module:{
         rules:[
             {test:/\.js$/,use:'babel-loader',exclude:/node_modules/},
